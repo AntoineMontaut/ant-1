@@ -13,9 +13,9 @@ class Apple():
         self.width = 20
         self.height = 20
 
-        self.rect = pygame.Rect(self.pos[0] - self.width//2,
-                                self.pos[1] - self.height//2,
+        self.rect = pygame.Rect(self.pos[0] - self.width/2,
+                                self.pos[1] - self.height/2,
                                 self.width, self.height)
 
-        self.color = (255, 100, 100)
-        self.masss = 9999
+        self.color = (255, 50, 50)
+        self.masss = float('inf')

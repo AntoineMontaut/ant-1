@@ -19,6 +19,8 @@ class Game():
                                 self.world.walls,
                                 self.screen_size)
 
+        # print(self.world.objects)
+
         self.win_surf = pygame.display.set_mode(self.screen_size,
                                                 0, 32)
         pygame.display.set_caption('Ant-1!')

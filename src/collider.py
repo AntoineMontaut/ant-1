@@ -83,12 +83,12 @@ class Collider():
                     if low < obj.rect.centery < high:
                         groups[col * len(row_groups) + row].append(obj)
                         # Just colorize for visualization's sake
-                        #if row % 2 == 0:
+                        # if row % 2 == 0:
                         #    if col % 2 == 0:
                         #        obj.color = (255, 255/(row+1), 255/(col+1))
                         #    else:
                         #        obj.color = (155, 255, 155/col)
-                        #else:
+                        # else:
                         #    if col % 2 == 0:
                         #        obj.color = (155, 255/(row+1), 255)
                         #    else:
@@ -98,7 +98,7 @@ class Collider():
         return groups
 
     def wall_detect(self, group, wall):
-        """check ants in xall groups for wall collisions"""
+        """check ants in wall groups for wall collisions"""
         for obj in group:
             if obj.rect.colliderect(wall.rect):
                 obj.collide(wall)
