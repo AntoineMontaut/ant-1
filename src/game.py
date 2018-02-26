@@ -8,7 +8,7 @@ from src.world import World
 
 class Game():
     def __init__(self):
-        self.screen_size = (1200, 800)
+        self.screen_size = (800, 600)
         self.FPS = 60
         self.fps_clock = pygame.time.Clock()
 

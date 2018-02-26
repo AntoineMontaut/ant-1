@@ -95,6 +95,7 @@ class Collider():
                         #        obj.color = (0, 255/(row+1), 255/(col+1))
                         break;
 
+        # print(groups)
         return groups
 
     def wall_detect(self, group, wall):
@@ -108,6 +109,10 @@ class Collider():
         #detect ant-to-ant collisions
         for one, two in it.combinations(group, 2):
             if one.rect.colliderect(two.rect):
+                if two.name == 'apple':
+                    one.color = (50, 255, 50)
+                elif one.name == 'apple':
+                    two.color = (50, 255, 50)
                 try:
                     one.collide(two)
                 except AttributeError:

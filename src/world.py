@@ -23,13 +23,13 @@ class World():
         map_data = maps.load_level_file(1)
         self.generate_walls(self.screen_size)
         self.generate_map_objects(map_data)
-        self.generate_ants(500)
+        self.generate_ants(100)
         self.generate_queens(0)
         return None
 
     def generate_walls(self, size):
         """generate the wall objects, for collision detection"""
-        t = 50 # wall thickness, off screen
+        t = 1e3 # wall thickness, off screen
         self.walls = [
             Wall(Rect((-t, -t), (size[0] + 2*t, t))), # top
             Wall(Rect((size[0], -t), (t, size[1] + 2 * t))),  # right
@@ -52,8 +52,8 @@ class World():
         print('\tGenerating the ants')
         for _ in range(ant_count):
             breed = rnd.choice(['black', 'red'])
-            x = int(rnd.random() * self.screen_size[0])
-            y = int(rnd.random() * self.screen_size[1])
+            x = int(rnd.random() * self.screen_size[0] / 1)
+            y = int(rnd.random() * self.screen_size[1] / 1)
             self.ants.append(Ant((x, y), breed))
         return None
 

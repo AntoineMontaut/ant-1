@@ -4,10 +4,11 @@ import random as rnd
 from pygame import Rect
 
 class Ant():
-    """An and"""
+    """An ant"""
 
     def __init__(self, pos, breed='black', caste='worker'):
         """initiate an ant at position pos"""
+        self.name = 'ant'
         self.breed = breed
         self.caste = caste
 

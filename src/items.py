@@ -9,6 +9,7 @@ class Item():
 
 class Apple():
     def __init__(self, pos):
+        self.name = 'apple'
         self.pos = pos
         self.width = 20
         self.height = 20
@@ -18,4 +19,5 @@ class Apple():
                                 self.width, self.height)
 
         self.color = (255, 50, 50)
-        self.masss = float('inf')
+        # self.masss = float('inf')
+        self.mass = 99999
