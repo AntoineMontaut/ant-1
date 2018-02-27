@@ -1,4 +1,5 @@
 import random as rnd
+import numpy as np
 
 from pygame import Rect
 
@@ -16,6 +17,7 @@ class World():
         self.ants = []
         self.items = []
         self.walls = []
+        self.pheromones = np.zeros((screen_size[0], screen_size[1])) # plus 20 margin
 
     def generate(self):
         print('Generating world!')
@@ -69,7 +71,18 @@ class World():
 
     def update(self, dt=None):
         """update the world and all its contents"""
+
+        self.pheromones = self.pheromones*0.997 # pheromones diffuse in time
+
         for ant in self.ants:
+            # print(ant.pos[0], ant.pos[1])
+            x, y = int(ant.pos[0]), int(ant.pos[1])
+            if ant.pos[0] > self.screen_size[0]:
+                x = self.screen_size[0]
+            if ant.pos[1] > self.screen_size[1]:
+                y = self.screen_size[1]
+
+            self.pheromones[x-1, y-1] += 1
             ant.update(dt)
 
     @property

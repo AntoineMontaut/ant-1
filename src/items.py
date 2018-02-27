@@ -18,6 +18,7 @@ class Apple():
                                 self.pos[1] - self.height/2,
                                 self.width, self.height)
 
-        self.color = (255, 50, 50)
+        # self.color = (255, 50, 50)
+        self.color = (255, 255, 64)
         # self.masss = float('inf')
         self.mass = 99999

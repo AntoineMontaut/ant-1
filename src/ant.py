@@ -37,6 +37,7 @@ class Ant():
 
     def update(self, dt=None):
         self.turn(dt)
+        # get observation, send it to NN, and get turn/orientation output
         self.move(dt)
 
     def turn(self, dt=None):
@@ -59,5 +60,9 @@ class Ant():
         """Ant turns around when it hits something"""
         if self.mass > obj.mass:
             pass
-        else:
+        elif self.mass*5 < obj.mass:
             self.orientation += math.pi
+        else:
+            self.orientation += rnd.choice([math.pi / 4, - math.pi / 4])
+        # else:
+        #     self.orientation += math.pi

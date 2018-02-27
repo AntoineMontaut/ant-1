@@ -16,10 +16,17 @@ class Renderer():
 
     def render(self):
         self.surface.fill(self.world.bg_color)
+        self.__render_pheromones()
         self.__render_ants()
         self.__render_items()
         self.__render_fps()
         pygame.display.update()
+
+    def __render_pheromones(self):
+        # self.world.pheromones = 255*self.world.pheromones/self.world.pheromones.max()
+        surf = pygame.surfarray.make_surface(self.world.pheromones)
+        self.surface.blit(surf, (0, 0))
+
 
     def __render_fps(self):
         pygame.font.init()
