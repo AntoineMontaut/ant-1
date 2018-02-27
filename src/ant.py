@@ -19,7 +19,7 @@ class Ant():
         self.height = {'black': 4, 'red': 2}[breed]
         self.mass = {'black': 5, 'red': 2}[breed]
         self.color = {
-            'black': (0, 0, 0, 128),
+            'black': (128, 128, 128, 128),
             'red': (255, 0, 0, 128)
         }[breed]
 
