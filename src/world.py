@@ -72,10 +72,10 @@ class World():
     def update(self, dt=None):
         """update the world and all its contents"""
 
-        self.pheromones = self.pheromones*0.997 # pheromones diffuse in time
+        self.pheromones = self.pheromones*0.999 # pheromones diffuse in time
 
         for ant in self.ants:
-            # print(ant.pos[0], ant.pos[1])
+            
             x, y = int(ant.pos[0]), int(ant.pos[1])
             if ant.pos[0] > self.screen_size[0]:
                 x = self.screen_size[0]
@@ -83,6 +83,7 @@ class World():
                 y = self.screen_size[1]
 
             self.pheromones[x-1, y-1] += 1
+
             ant.update(dt)
 
     @property
