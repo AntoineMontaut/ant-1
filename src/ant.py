@@ -6,7 +6,9 @@ from pygame import Rect
 from src.config_ants import *
 
 class Ant():
-    """An ant"""
+    """
+    An ant
+    """
 
     def __init__(self, pos, breed='black', caste='worker'):
         """initiate an ant at position pos"""
