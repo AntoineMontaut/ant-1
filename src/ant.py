@@ -48,6 +48,8 @@ class Ant():
         self.r = 0
         self.s_ = None
         self.p = None
+        self.memory = []
+        self.memory_ = []
 
     def update(self, dt=None):
         # self.turn(dt)
@@ -55,7 +57,7 @@ class Ant():
 
         # get state:
 
-        a = self.act(self.s)
+        a = self.act()
         self.orientation += (a-1) * np.pi / 5
         self.orientation = self.orientation % (2 * np.pi)
 
@@ -104,26 +106,31 @@ class Ant():
     def update_epsilon(self, epsilon):
         self.epsilon = epsilon
 
-    def act(self, s):
+    def act(self):
         if rnd.random() < self.epsilon:
             return rnd.randint(0, NUM_ACTIONS-1)
 
         else:
             # s = np.array([s])
             # p = brain.predict_p(s)[0]
-            p = self.p
+            # p = self.p
 
-            a = np.random.choice(NUM_ACTIONS, p=p)
+            self.a = np.random.choice(NUM_ACTIONS, p=self.p)
             # a = np.argmax(p)
-            self.a = a
 
-            return a
+            return self.a
 
     def update_state(self,s):
         self.s = s
 
+    def get_state(self):
+        return self.s
+
     def update_state_(self, s_):
         self.s_ = s_
+
+    def get_state_(self):
+        return self.s_
 
     def reinitialize_r(self):
         self.r = 0
@@ -133,3 +140,19 @@ class Ant():
 
     def update_p(self, p):
         self.p = p
+
+    def append_memory(self, state):
+        self.memory.append(state)
+        if len(self.memory) > MEMORY_SIZE:
+            self.memory.pop[0]
+
+    def get_memory(self):
+        return self.memory
+
+    def append_memory_(self, state):
+        self.memory_.append(state)
+        if len(self.memory_) > MEMORY_SIZE:
+            self.memory_.pop[0]
+
+    def get_memory_(self):
+        return self.memory_

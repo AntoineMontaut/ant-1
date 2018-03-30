@@ -114,8 +114,11 @@ class Game():
                 ant.update_epsilon(epsilon)
                 ant.reinitialize_r()
                 ant.update_state(self.world.get_state(ant))
-                # print(ant.s)
-                p = self.brain.predict_p(ant.s)[0]
+                ant.append_memory(ant.get_state())
+                memory = ant.get_memory()
+
+                if frame_counter > MEMORY_SIZE:
+                    p = self.brain.predict_p(memory)[0]
                 ant.update_p(p)
 
                 (x, y) = ant.pos
@@ -144,12 +147,14 @@ class Game():
 
             for ant in self.world.ants:
                 ant.update_state_(self.world.get_state(ant))
-
+                ant.append_memory_(ant.get_state_())
+                memory_ = ant.get_memory_()
+                
                 s, a, r, s_ = ant.get_info()
                 self.reward_total += r
                 a_cats = np.zeros(NUM_ACTIONS)
                 a_cats[a] = 1
-                self.brain.train_push(s, a_cats, r, s_)
+                self.brain.train_push(memory, a_cats, r, memory_)
 
             self.brain.optimize()
 
