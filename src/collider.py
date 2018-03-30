@@ -4,6 +4,8 @@ Collider classes manage and resolves collisions
 
 import itertools as it
 
+import sys
+
 class Segmenter():
     def __init__(self, window_size, shape=(4, 4), margin=10):
         self.cols = shape[0]
@@ -57,8 +59,8 @@ class Collider():
                 group[1].append(obj) # right
             elif obj.rect.centerx < self.segmenter.margin:
                 group[3].append(obj)
-        
-        return group 
+
+        return group
 
     def segregate_objects(self):
         """
@@ -106,6 +108,7 @@ class Collider():
 
     def detect(self, group):
         """cycle though all objects and find collisions"""
+        pass
         #detect ant-to-ant collisions
         for one, two in it.combinations(group, 2):
             if one.rect.colliderect(two.rect):

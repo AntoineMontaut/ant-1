@@ -1,10 +1,11 @@
 """
 renderer is in charge of drawing graphics to the screen
 
-the game did define the screen size, but otherwise the rest is here 
+the game did define the screen size, but otherwise the rest is here
 """
 
 import math
+import numpy as np
 
 import pygame
 
@@ -14,17 +15,22 @@ class Renderer():
         self.world = world
         self.clock = clock
 
-    def render(self):
+    def render(self, phero='pheromones'):
         self.surface.fill(self.world.bg_color)
-        self.__render_pheromones()
+        self.__render_phero(phero)
         self.__render_ants()
         self.__render_items()
         self.__render_fps()
         pygame.display.update()
 
-    def __render_pheromones(self):
-        # self.world.pheromones = 255*self.world.pheromones/self.world.pheromones.max()
-        surf = pygame.surfarray.make_surface(self.world.pheromones)
+    def __render_phero(self, phero):
+
+        if phero == 'pheromones':
+            pheromones_render = self.world.pheromones[5:-5, 5:-5]
+        elif phero == 'pherofoods':
+            pheromones_render = self.world.pherofoods[5:-5, 5:-5]
+
+        surf = pygame.surfarray.make_surface(pheromones_render)
         self.surface.blit(surf, (0, 0))
 
 

@@ -5,11 +5,13 @@ import pygame
 class Item():
     def __init__(self):
         pass
+        self.type = 'item'
 
 
 class Apple():
     def __init__(self, pos):
         self.name = 'apple'
+        self.type = 'food'
         self.pos = pos
         self.width = 20
         self.height = 20
@@ -21,4 +23,4 @@ class Apple():
         # self.color = (255, 50, 50)
         self.color = (255, 255, 64)
         # self.masss = float('inf')
-        self.mass = 99999
+        self.mass = 999
