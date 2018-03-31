@@ -24,12 +24,12 @@ class Brain():
 
     def _build_model(self):
         l_input = layers.Input(batch_shape=(None, NUM_STATE))
-        l_dense_1 = layers.Dense(64, activation='relu')(l_input)
-        l_dense_2 = layers.Dense(32, activation='relu')(l_dense_1)
-        l_dense_3 = layers.Dense(16, activation='relu')(l_dense_2)
+        l_dense_1 = layers.Dense(32, activation='relu')(l_input)
+        l_dense_2 = layers.Dense(16, activation='relu')(l_dense_1)
+        # l_dense_3 = layers.Dense(16, activation='relu')(l_dense_2)
 
-        out_actions = layers.Dense(NUM_ACTIONS, activation='softmax')(l_dense_3)
-        out_value = layers.Dense(1, activation='linear')(l_dense_3)
+        out_actions = layers.Dense(NUM_ACTIONS, activation='softmax')(l_dense_2)
+        out_value = layers.Dense(1, activation='linear')(l_dense_2)
 
         model = models.Model(inputs=[l_input], output=[out_actions, out_value])
         model._make_predict_function()
@@ -58,11 +58,12 @@ class Brain():
         return s_t, a_t, r_t, minimize
 
     def optimize(self):
-        print('Optimizing')
         memory, a, r, memory_ = self.train_queue
         self.train_queue = [[], [], [], []]
+        memory = np.vstack(memory)
         a = np.vstack(a)
         r = np.vstack(r)
+        memory_ = np.vstack(memory_)
 
         v = self.predict_v(memory_)
         r = r + GAMMA_N * v

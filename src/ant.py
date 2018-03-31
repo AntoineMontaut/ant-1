@@ -144,7 +144,7 @@ class Ant():
             self.memory.pop(0)
 
     def get_memory(self):
-        return np.ravel(self.memory)
+        return np.concatenate(self.memory, axis=1)
 
     def append_memory_(self, state):
         self.memory_.append(state)
@@ -152,4 +152,4 @@ class Ant():
             self.memory_.pop(0)
 
     def get_memory_(self):
-        return np.ravel(self.memory_)
+        return np.concatenate(self.memory_, axis=1)

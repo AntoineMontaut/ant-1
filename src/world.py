@@ -78,7 +78,7 @@ class World():
 
     def update(self, dt=None):
         """update the world and all its contents"""
-        decay_rate = 0.997
+        decay_rate = DECAY_RATE
 
         self.pheromones = self.pheromones*decay_rate # pheromones diffuse in time
         self.pherofoods = self.pherofoods*decay_rate
@@ -169,7 +169,8 @@ class World():
             pherom_vision,
             pherof_vision
         ])
-        state = state.reshape((20,))
+        # state = state.reshape((20,))
+        state = state.reshape(1,20)
 
         return state
 

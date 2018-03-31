@@ -60,9 +60,9 @@ class Game():
         # ----------------------------------------
 
         frame_counter = 0
-        eps_start = .99
-        eps_end = .3
-        eps_steps = 1e4
+        eps_start = EPSILON_START
+        eps_end = EPSILON_END
+        eps_steps = EPSILON_STEPS
 
         phero = 'pheromones'
         rendering = True
@@ -165,7 +165,7 @@ class Game():
     def run_episodes(self, num_episodes=1, num_frames=1e4):
         for episode in range(num_episodes):
             print('-'*50)
-            print('Episode #{}'.format(episode))
+            print('Episode #{}'.format(episode+1))
             self.run(num_frames)
 
 
