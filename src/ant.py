@@ -66,10 +66,7 @@ class Ant():
     def turn(self, dt=None):
         """Turn"""
         self.orientation += rnd.uniform(-0.2, 0.2)
-        if self.orientation >= 2 * math.pi:
-            self.orientation -= 2 * math.pi
-        elif self.orientation < 0:
-            self.orientation += 2 * math.pi
+        self.orientation = self.orientation % 2 * np.pi
 
     def move(self, dt=3.0):
         """Move"""
@@ -136,7 +133,7 @@ class Ant():
         self.r = 0
 
     def get_info(self):
-        return self.s, self.a, self.r, self.s_
+        return self.a, self.r
 
     def update_p(self, p):
         self.p = p
@@ -144,15 +141,15 @@ class Ant():
     def append_memory(self, state):
         self.memory.append(state)
         if len(self.memory) > MEMORY_SIZE:
-            self.memory.pop[0]
+            self.memory.pop(0)
 
     def get_memory(self):
-        return self.memory
+        return np.ravel(self.memory)
 
     def append_memory_(self, state):
         self.memory_.append(state)
         if len(self.memory_) > MEMORY_SIZE:
-            self.memory_.pop[0]
+            self.memory_.pop(0)
 
     def get_memory_(self):
-        return self.memory_
+        return np.ravel(self.memory_)

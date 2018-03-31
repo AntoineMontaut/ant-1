@@ -58,37 +58,35 @@ class Brain():
         return s_t, a_t, r_t, minimize
 
     def optimize(self):
-        s, a, r, s_ = self.train_queue
+        print('Optimizing')
+        memory, a, r, memory_ = self.train_queue
         self.train_queue = [[], [], [], []]
-
-        s = np.vstack(s)
         a = np.vstack(a)
         r = np.vstack(r)
-        s_ = np.vstack(s_)
 
-        v = self.predict_v(s_)
+        v = self.predict_v(memory_)
         r = r + GAMMA_N * v
 
         s_t, a_t, r_t, minimize = self.graph
-        self.session.run(minimize, feed_dict={s_t: s, a_t: a, r_t: r})
+        self.session.run(minimize, feed_dict={s_t: memory, a_t: a, r_t: r})
 
-    def train_push(self, s, a, r, s_):
-        self.train_queue[0].append(s)
+    def train_push(self, memory, a, r, memory_):
+        self.train_queue[0].append(memory)
         self.train_queue[1].append(a)
         self.train_queue[2].append(r)
-        self.train_queue[3].append(s_)
+        self.train_queue[3].append(memory_)
 
-    def predict(self, s):
+    def predict(self, memory):
         with self.default_graph.as_default():
-            p, v = self.model.predict(s)
+            p, v = self.model.predict(memory)
             return p, v
 
-    def predict_p(self, s):
+    def predict_p(self, memory):
         with self.default_graph.as_default():
-            p, v = self.model.predict(s)
+            p, v = self.model.predict(memory)
             return p
 
-    def predict_v(self, s):
+    def predict_v(self, memory):
         with self.default_graph.as_default():
-            p, v = self.model.predict(s)
+            p, v = self.model.predict(memory)
             return v

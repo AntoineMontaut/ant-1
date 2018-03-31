@@ -7,6 +7,7 @@ import src.items as items
 import src.maps as maps
 from src.ant import Ant
 from src.wall import Wall
+from src.config_ants import *
 
 class World():
     """a world contains all the objects"""
@@ -26,7 +27,7 @@ class World():
         map_data = maps.load_level_file(1)
         self.generate_walls(self.screen_size)
         self.generate_map_objects(map_data)
-        self.generate_ants(100)
+        self.generate_ants(NUM_ANTS)
         self.generate_queens(0)
         return None
 
@@ -160,12 +161,15 @@ class World():
 
         temp = np.array([orientation, food]) # in an array before concatenating everything
 
+        pherom_vision = np.nan_to_num(pherom_vision)
+        pherof_vision = np.nan_to_num(pherof_vision)
+
         state = np.concatenate([
             temp,
             pherom_vision,
             pherof_vision
         ])
-        state = state.reshape(1, 20)
+        state = state.reshape((20,))
 
         return state
 

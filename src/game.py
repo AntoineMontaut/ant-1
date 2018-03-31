@@ -115,10 +115,12 @@ class Game():
                 ant.reinitialize_r()
                 ant.update_state(self.world.get_state(ant))
                 ant.append_memory(ant.get_state())
-                memory = ant.get_memory()
 
-                if frame_counter > MEMORY_SIZE:
+                if frame_counter > MEMORY_SIZE+1:
+                    memory = ant.get_memory()
                     p = self.brain.predict_p(memory)[0]
+                else:
+                    p = [1/NUM_ACTIONS for _ in range(NUM_ACTIONS)]
                 ant.update_p(p)
 
                 (x, y) = ant.pos
@@ -148,15 +150,17 @@ class Game():
             for ant in self.world.ants:
                 ant.update_state_(self.world.get_state(ant))
                 ant.append_memory_(ant.get_state_())
-                memory_ = ant.get_memory_()
-                
-                s, a, r, s_ = ant.get_info()
-                self.reward_total += r
-                a_cats = np.zeros(NUM_ACTIONS)
-                a_cats[a] = 1
-                self.brain.train_push(memory, a_cats, r, memory_)
 
-            self.brain.optimize()
+                if frame_counter > MEMORY_SIZE+1:
+                    memory_ = ant.get_memory_()
+                    a, r = ant.get_info()
+                    self.reward_total += r
+                    a_cats = np.zeros(NUM_ACTIONS)
+                    a_cats[a] = 1
+                    self.brain.train_push(memory, a_cats, r, memory_)
+
+            if frame_counter > MEMORY_SIZE+1:
+                self.brain.optimize()
 
     def run_episodes(self, num_episodes=1, num_frames=1e4):
         for episode in range(num_episodes):
