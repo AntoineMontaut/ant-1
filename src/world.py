@@ -7,6 +7,7 @@ import src.items as items
 import src.maps as maps
 from src.ant import Ant
 from src.wall import Wall
+from src.colony import Colony
 from src.config_ants import *
 
 class World():
@@ -18,6 +19,7 @@ class World():
         self.ants = []
         self.items = []
         self.walls = []
+        self.colony = None
         self.pheromones = np.zeros((screen_size[0] + 10, screen_size[1] + 10)) # plus 20 margin
         self.pherofoods = np.zeros((screen_size[0] + 10, screen_size[1] + 10))
 
@@ -27,9 +29,13 @@ class World():
         map_data = maps.load_level_file(1)
         self.generate_walls(self.screen_size)
         self.generate_map_objects(map_data)
+        self.generate_colony((self.screen_size[0]/2, self.screen_size[0]/2))
         self.generate_ants(NUM_ANTS)
         self.generate_queens(0)
         return None
+
+    def generate_colony (self, pos):
+        self.colony = Colony(pos)
 
     def generate_walls(self, size):
         """generate the wall objects, for collision detection"""
@@ -38,7 +44,7 @@ class World():
             Wall(Rect((-t, -t), (size[0] + 2*t, t)), colony=False), # top
             Wall(Rect((size[0], -t), (t, size[1] + 2 * t)), colony=False),  # right
             Wall(Rect((-20, size[1]), (size[0] + 2 * t, t)), colony=False),  # bot
-            Wall(Rect((-t, -t), (t, size[1] + 2 * t)), colony=True),  # left
+            Wall(Rect((-t, -t), (t, size[1] + 2 * t)), colony=False),  # left
         ]
         return None
 
@@ -177,4 +183,4 @@ class World():
     @property
     def objects(self):
         """report all our objects"""
-        return self.ants + self.items
+        return self.ants + self.items + self.colony

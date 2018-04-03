@@ -11,7 +11,7 @@ from src.config_ants import *
 
 class Game():
     def __init__(self):
-        self.screen_size = (500, 300)
+        self.screen_size = (800, 500)
         self.FPS = 60
         self.fps_clock = pygame.time.Clock()
 
@@ -68,7 +68,7 @@ class Game():
         rendering = True
 
         while frame_counter < max_frames + 1:
-            if frame_counter % 500 == 0:
+            if frame_counter % 5000 == 0:
                 delta_reward = self.reward_total - self.reward_previous
                 print("frame #{} | total reward: {} | Delta: {}".format(
                     frame_counter, self.reward_total, delta_reward))

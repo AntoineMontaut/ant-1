@@ -20,6 +20,7 @@ class Renderer():
         self.__render_phero(phero)
         self.__render_ants()
         self.__render_items()
+        self.__render_colony()
         self.__render_fps()
         pygame.display.update()
 
@@ -72,3 +73,12 @@ class Renderer():
             # outline = pygame.Rect(top_left[0], top_left[1], obj.width, obj.height)
             # pygame.draw.rect(self.surface, (0, 255, 0, 255), outline, 1)
             # pygame.draw.circle(self.surface, (255, 0, 0, 255), obj.rect.center, 20, 1)
+
+    def __render_colony(self):
+        (width, height) = self.world.colony.get_dimensions()
+        colony_surface = pygame.Surface((width, height),
+                                    pygame.SRCALPHA, 32)
+        colony_surface.fill(self.world.colony.get_color())
+        pos = self.world.colony.get_position()
+        top_left = (pos[0] - width/2, pos[1] - height/2)
+        self.surface.blit(colony_surface, top_left)

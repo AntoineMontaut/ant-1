@@ -88,9 +88,9 @@ class Ant():
             pass
         elif self.mass*5 < obj.mass:
             self.orientation += math.pi
-            if (obj.type == 'wall') and (obj.colony):
+            if (obj.type == 'colony'):
                 if self.carry_food == True:
-                    self.r += 100
+                    self.r += 1
                     self.carry_food = False
                     self.color = (128, 128, 128, 128)
         else:
