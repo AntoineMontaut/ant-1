@@ -50,8 +50,14 @@ class Ant():
         self.p = None
         self.memory = []
         self.memory_ = []
+        self.pherom_counter = 0
+        self.pherof_counter = 0
 
     def update(self, dt=None):
+        if self.carry_food:
+            self.pherof_counter += 1
+        else:
+            self.pherom_counter += 1
         # self.turn(dt)
         # get observation, send it to NN, and get turn/orientation output
 
@@ -84,15 +90,17 @@ class Ant():
                 self.r += 1
                 self.color = (0, 255, 0, 128)
             self.carry_food = True
+            self.pherof_counter = 0
         if self.mass > obj.mass:
             pass
         elif self.mass*5 < obj.mass:
             self.orientation += math.pi
-            if (obj.type == 'colony'):
-                if self.carry_food == True:
-                    self.r += 1
-                    self.carry_food = False
-                    self.color = (128, 128, 128, 128)
+        if (obj.type == 'colony'):
+            self.pherom_counter = 0
+            if self.carry_food == True:
+                self.r += 1
+                self.carry_food = False
+                self.color = (128, 128, 128, 128)
         else:
             pass
             # self.orientation += rnd.choice([math.pi / 4, - math.pi / 4])

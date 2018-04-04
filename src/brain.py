@@ -26,10 +26,10 @@ class Brain():
         l_input = layers.Input(batch_shape=(None, NUM_STATE))
         l_dense_1 = layers.Dense(32, activation='relu')(l_input)
         l_dense_2 = layers.Dense(16, activation='relu')(l_dense_1)
-        # l_dense_3 = layers.Dense(16, activation='relu')(l_dense_2)
+        l_dense_3 = layers.Dense(16, activation='relu')(l_dense_2)
 
-        out_actions = layers.Dense(NUM_ACTIONS, activation='softmax')(l_dense_2)
-        out_value = layers.Dense(1, activation='linear')(l_dense_2)
+        out_actions = layers.Dense(NUM_ACTIONS, activation='softmax')(l_dense_3)
+        out_value = layers.Dense(1, activation='linear')(l_dense_3)
 
         model = models.Model(inputs=[l_input], output=[out_actions, out_value])
         model._make_predict_function()

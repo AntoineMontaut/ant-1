@@ -11,7 +11,7 @@ from src.config_ants import *
 
 class Game():
     def __init__(self):
-        self.screen_size = (800, 500)
+        self.screen_size = (1000, 800)
         self.FPS = 60
         self.fps_clock = pygame.time.Clock()
 
@@ -167,6 +167,7 @@ class Game():
             print('-'*50)
             print('Episode #{}'.format(episode+1))
             self.run(num_frames)
+        self.brain.model.save('04_03.h5')
 
 
     def terminate(self):

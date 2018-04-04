@@ -29,7 +29,7 @@ class World():
         map_data = maps.load_level_file(1)
         self.generate_walls(self.screen_size)
         self.generate_map_objects(map_data)
-        self.generate_colony((self.screen_size[0]/2, self.screen_size[0]/2))
+        self.generate_colony(COLONY_POSITION)
         self.generate_ants(NUM_ANTS)
         self.generate_queens(0)
         return None
@@ -67,8 +67,9 @@ class World():
         print('\tGenerating the ants')
         for _ in range(ant_count):
             breed = rnd.choice(['black', 'red'])
-            x = int(rnd.random() * self.screen_size[0] / 100)
-            y = int(rnd.random() * self.screen_size[1] / 1)
+            # x = int(rnd.random() * self.screen_size[0] / 100)
+            # y = int(rnd.random() * self.screen_size[1] / 1)
+            (x, y) = self.colony.get_position()
             self.ants.append(Ant((x, y), breed))
         return None
 
@@ -101,7 +102,7 @@ class World():
                 y = self.screen_size[1] - 1
 
             try:
-                if not ant.carry_food:
+                if (not ant.carry_food) and (ant.pherom_counter < PHEROM_COUNTER):
                     self.pheromones[x, y] += 1
                     # self.pheromones[x + 1, y] += 1
                     # self.pheromones[x - 1, y] += 1
@@ -109,7 +110,7 @@ class World():
                     # self.pheromones[x, y - 1] += 1
                     # self.pheromones[x - 1, y - 1] += 1
                     # self.pheromones[x + 1, y + 1] += 1
-                else:
+                elif ant.carry_food and (ant.pherof_counter < PHEROF_COUNTER):
                     self.pherofoods[x, y] += 1
                     # self.pherofoods[x + 1, y] += 1
                     # self.pherofoods[x - 1, y] += 1
@@ -183,4 +184,4 @@ class World():
     @property
     def objects(self):
         """report all our objects"""
-        return self.ants + self.items + self.colony
+        return self.ants + self.items + [self.colony]
